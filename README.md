@@ -14,6 +14,11 @@ python manage.py makemigrations
 python manage.py migrate
 ```
 
+- 本地授权root密码为空
+```
+grant all privileges on *.* to 'root'@'127.0.0.1' identified by '';
+```
+
 ### 开启爬虫
 
 ```
