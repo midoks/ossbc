@@ -11,10 +11,10 @@ import MySQLdb as mdb
 import MySQLdb.cursors
 
 SRC_HOST = '127.0.0.1'
-SRC_USER = 'root'
+SRC_USER = 'ssbc'
 SRC_PASS = ''
 DST_HOST = '127.0.0.1'
-DST_USER = 'root'
+DST_USER = 'ssbc'
 DST_PASS = ''
 
 src_conn = mdb.connect(SRC_HOST, SRC_USER, SRC_PASS, 'ssbc', charset='utf8', cursorclass=MySQLdb.cursors.DictCursor)

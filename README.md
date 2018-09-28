@@ -9,14 +9,14 @@
 
 ### 创建数据
 
+- 本地授权root密码为空
+```
+grant all privileges on *.* to 'ssbc'@'127.0.0.1' identified by '';
+```
+
 ```
 python manage.py makemigrations
 python manage.py migrate
-```
-
-- 本地授权root密码为空
-```
-grant all privileges on *.* to 'root'@'127.0.0.1' identified by '';
 ```
 
 ### 开启爬虫
