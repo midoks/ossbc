@@ -1,7 +1,7 @@
 backports.ssl-match-hostname==3.4.0.2
 Django==1.8.1
 django-mysql==0.1.10
-gunicorn==19.3.0
+gunicorn==19.5.0
 MySQL-python==1.2.5
 ordereddict==1.1
 oursql==0.9.3.2
