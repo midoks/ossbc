@@ -1,3 +1,5 @@
+#coding: utf8
+
 """ssbc URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -15,6 +17,7 @@ Including another URLconf
 """
 from django.conf.urls import include, url
 from django.contrib import admin
+from django.contrib.staticfiles.urls import staticfiles_urlpatterns
 
 import web.views
 
@@ -31,3 +34,9 @@ urlpatterns = [
     url(r'^howto/$', web.views.howto, name='howto'),
     url(r'^admin/', include(admin.site.urls)),
 ]
+
+"""
+gunicorn -k gevent -b :8002 -w 2 ssbc.wsgi
+解决上面命令启动后,静态资源找不到
+"""
+urlpatterns += staticfiles_urlpatterns()
