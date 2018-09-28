@@ -10,3 +10,8 @@ pip install -r requirements.txt
 ### 创建数据
 python manage.py makemigrations
 python manage.py migrate
+
+
+### 开启爬虫
+python simdht_worker.py
+python index_worker.py
