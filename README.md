@@ -6,3 +6,6 @@
 
 ### 安装依赖
 pip install -r requirements.txt
+
+### 创建数据
+python manage.py makemigrations
