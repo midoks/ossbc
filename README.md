@@ -11,7 +11,7 @@
 
 - 本地授权root密码为空
 ```
-grant all privileges on *.* to 'ssbc'@'127.0.0.1' identified by '';
+grant all privileges on *.* to 'ssbc'@'127.0.0.1' identified by 'ssbc';
 ```
 
 ```
