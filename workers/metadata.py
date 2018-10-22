@@ -81,7 +81,7 @@ def parse_metadata(data):
     return info
 
 
-def save_metadata(dbcurr, binhash, address, start_time, data):
+def save_metadata(dbcurr, binhash, address, start_time, data, blacklist):
     utcnow = datetime.datetime.utcnow()
     name = threading.currentThread().getName()
     try:
@@ -100,6 +100,9 @@ def save_metadata(dbcurr, binhash, address, start_time, data):
     info['last_seen'] = utcnow
     info['source_ip'] = address[0]
 
+    for item in blacklist:
+        if str(item) in info['name']:
+            return
     if info.get('files'):
         files = [z for z in info['files'] if not z['path'].startswith('_')]
         if not files:
@@ -123,11 +126,14 @@ def save_metadata(dbcurr, binhash, address, start_time, data):
             print '\n', 'Saved', info['info_hash'], info['name'], (time.time()-start_time), 's', address[0], geoip.country_name_by_addr(address[0]),
         except:
             print '\n', 'Saved', info['info_hash'], sys.exc_info()[1]
-        ret = dbcurr.execute('INSERT INTO search_hash(info_hash,category,data_hash,name,extension,classified,source_ip,tagged,' + 
+        try:
+            ret = dbcurr.execute('INSERT INTO search_hash(info_hash,category,data_hash,name,extension,classified,source_ip,tagged,' + 
             'length,create_time,last_seen,requests,comment,creator) VALUES(%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s,%s)',
             (info['info_hash'], info['category'], info['data_hash'], info['name'], info['extension'], info['classified'],
             info['source_ip'], info['tagged'], info['length'], info['create_time'], info['last_seen'], info['requests'],
             info.get('comment',''), info.get('creator','')))
+        except:
+            print 'insert search_hash err: ',info['info_hash']
         dbcurr.connection.commit()
     except:
         print name, 'save error', info
