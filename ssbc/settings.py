@@ -86,6 +86,7 @@ DATABASES = {
         'HOST': '127.0.0.1',
         'PORT': 3306,
         'USER': 'ssbc',
+        'PASSWORD': 'ssbc',
         'OPTIONS': {
             "init_command": "SET storage_engine=MYISAM",
         }
