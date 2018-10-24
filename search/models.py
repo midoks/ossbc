@@ -1,4 +1,4 @@
-#coding: utf8
+# coding: utf8
 import json
 import re
 import traceback
@@ -10,7 +10,8 @@ import MySQLdb as mdb
 import MySQLdb.cursors
 
 
-search_conn = mdb.connect('127.0.0.1', 'root', '', '', port=9306, charset='utf8', cursorclass=MySQLdb.cursors.DictCursor)
+search_conn = mdb.connect('127.0.0.1', 'ssbc', 'ssbc', '', port=9306,
+                          charset='utf8', cursorclass=MySQLdb.cursors.DictCursor)
 search_conn.ping(True)
 re_punctuations = re.compile(
     ur"。|，|,|！|…|!|《|》|<|>|\"|'|:|：|？|\?|、|\||“|”|‘|’|；|\\|—|_|=|（|）|·|\(|\)|　|\.|【|】|『|』|@|&|%|\^|\*|\+|\||<|>|~|`|\[|\]")
@@ -18,6 +19,7 @@ re_punctuations = re.compile(
 
 def escape_string(string):
     return re.sub(r"(['`=\(\)|\-!@~\"&/\\\^\$])", r"\\\1", string)
+
 
 def split_words(string):
     string = re_punctuations.sub(u' ', string).replace(u'-', u' ')
@@ -32,6 +34,7 @@ def split_words(string):
 
 
 class HashManager(models.Manager):
+
     def search(self, keyword, start=0, count=10, category=None, sort=None):
         search_cursor = search_conn.cursor()
         sql = '''SELECT id FROM rt_main'''
@@ -42,7 +45,7 @@ class HashManager(models.Manager):
             values.append(escape_string(keyword))
         if category:
             conds.append('category=%s')
-            values.append(binascii.crc32(category)&0xFFFFFFFFL)
+            values.append(binascii.crc32(category) & 0xFFFFFFFFL)
         if conds:
             sql += ' WHERE ' + ' AND '.join(conds)
         if sort == 'create_time':
@@ -65,7 +68,7 @@ class HashManager(models.Manager):
         sql += ''' GROUP BY category OPTION max_query_time=200'''
         search_cursor.execute(sql, values)
         cats = list(search_cursor.fetchall())
-        
+
         res = {
             'result': {
                 'items': items,
@@ -85,7 +88,8 @@ class HashManager(models.Manager):
         else:
             items = Hash.objects.filter(id__in=ids).values()
         res = list(items)
-        items = FileList.objects.filter(info_hash__in=[x['info_hash'] for x in res]).values()
+        items = FileList.objects.filter(
+            info_hash__in=[x['info_hash'] for x in res]).values()
         for x in res:
             for y in items:
                 if x['info_hash'] == y['info_hash']:
@@ -109,7 +113,8 @@ class HashManager(models.Manager):
             sql = '''SELECT id FROM rt_main WHERE MATCH(%s) AND id<>%s LIMIT 0,%s OPTION max_matches=1000, max_query_time=50'''
             search_cursor.execute(sql, (string, hash_id, count))
             ids = [x['id'] for x in search_cursor.fetchall()]
-            items = Hash.objects.only('name', 'length', 'create_time', 'id').filter(id__in=ids).values()
+            items = Hash.objects.only(
+                'name', 'length', 'create_time', 'id').filter(id__in=ids).values()
         except:
             traceback.print_exc()
             items = []
@@ -189,6 +194,3 @@ class ContactEmail(models.Model):
     text = models.TextField('Text')
     receive_time = models.DateTimeField(auto_now_add=True)
     is_complaint = models.BooleanField(default=False)
-
-
-
