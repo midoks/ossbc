@@ -25,3 +25,14 @@ python manage.py migrate
 python simdht_worker.py
 python index_worker.py
 ```
+
+
+### 自动安装
+
+```
+curl -fsSL  https://raw.githubusercontent.com/midoks/ossbc/master/scripts/ssbc-setup.sh | sh
+```
+
+```
+curl -fsSL  https://raw.githubusercontent.com/midoks/ossbc/master/scripts/ssbc-setup-msm.sh | sh
+```
