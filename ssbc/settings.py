@@ -25,7 +25,7 @@ SECRET_KEY = 'fvewrf=&i9mjawldfkbxt%(oqi%3g1s=18o+n*5b-t4-k&-o=e'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['*',]
+ALLOWED_HOSTS = ['*', ]
 
 
 # Application definition
@@ -85,10 +85,10 @@ DATABASES = {
         'NAME': 'ssbc',
         'HOST': '127.0.0.1',
         'PORT': 3306,
-        'USER': 'root',
+        'USER': 'ssbc',
         'OPTIONS': {
-           "init_command": "SET storage_engine=MYISAM",
-        }  
+            "init_command": "SET storage_engine=MYISAM",
+        }
     }
 }
 
@@ -127,4 +127,3 @@ ADMINS = (('Xiaoxia', 'test@test.com'),)
 
 
 HOME_URL = ''
-
