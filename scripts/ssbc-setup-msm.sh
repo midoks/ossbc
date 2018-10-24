@@ -18,7 +18,7 @@ yum -y install wget net-tools unzip git
 #wget -qO /etc/yum.repos.d/epel.repo http://mirrors.aliyun.com/repo/epel-7.repo
 #yum clean metadata
 #yum makecache
-yum -y install gcc gcc-c++ python-devel mariadb mariadb-devel mariadb-server
+yum -y install gcc gcc-c++ python-devel
 mkdir -p /www/wwwroot
 cd /www/wwwroot
 git clone https://github.com/midoks/ossbc.git
@@ -28,7 +28,6 @@ yum -y install epel-release
 yum -y install  python-pip
 pip install -r requirements.txt
 pip install  pygeoip
-systemctl start  mariadb.service 
 mysql -uroot  -e"create database ssbc default character set utf8;"  
 mkdir  -p  /data/bt/index/db /data/bt/index/binlog  /tem/downloads
 chmod  755 -R /data
