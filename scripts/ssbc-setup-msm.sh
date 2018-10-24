@@ -22,8 +22,8 @@ yum -y install gcc gcc-c++ python-devel
 mkdir -p /www/wwwroot
 cd /www/wwwroot
 git clone https://github.com/midoks/ossbc.git
-chmod +x /www/wwwroot/ssbc/bin/ssbc-reboot.sh 
-cd /www/wwwroot/ssbc
+chmod +x /www/wwwroot/ossbc/bin/ssbc-reboot.sh 
+cd /www/wwwroot/ossbc
 yum -y install epel-release 
 yum -y install  python-pip
 pip install -r requirements.txt
@@ -45,8 +45,8 @@ searchd --config ./sphinx.conf
 
 
 ln -s /usr/lib/python2.7/site-packages/django/contrib/admin/static/admin /www/wwwroot/ssbc/web/static/admin
-cd /www/wwwroot/ssbc
-sed -i "42a\    'gunicorn'," /www/wwwroot/ssbc/settings.py
+cd /www/wwwroot/ossbc
+sed -i "42a\    'gunicorn'," /www/wwwroot/ossbc/settings.py
 #gunicorn启动网站并在后台运行
 nohup gunicorn ssbc.wsgi:application -b 127.0.0.1:8000 --reload>/dev/zero 2>&1&  
 myip=`/sbin/ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v inet6|awk '{print $2}'|tr -d "addr:"`
@@ -62,20 +62,20 @@ done
 nohup python simdht_worker.py >/dev/zero 2>&1&
 #定时索引并在后台运行
 nohup python index_worker.py >/dev/zero 2>&1&  
-cd /www/wwwroot/ssbc
+cd /www/wwwroot/ossbc
 python manage.py createsuperuser
 #开机自启动
 chmod +x /etc/rc.d/rc.local
 
-echo "cd /www/wwwroot/ssbc" >> /etc/rc.d/rc.local
+echo "cd /www/wwwroot/ossbc" >> /etc/rc.d/rc.local
 echo "indexer -c sphinx.conf --all" >> /etc/rc.d/rc.local
 echo "searchd --config ./sphinx.conf " >> /etc/rc.d/rc.local
 echo "nohup gunicorn ssbc.wsgi:application -b 127.0.0.1:8000 --reload>/dev/zero 2>&1&" >> /etc/rc.d/rc.local
-echo "cd /www/wwwroot/ssbc/workers" >> /etc/rc.d/rc.local
+echo "cd /www/wwwroot/ossbc/workers" >> /etc/rc.d/rc.local
 echo "nohup python simdht_worker.py >/dev/zero 2>&1&" >> /etc/rc.d/rc.local
 echo "nohup python index_worker.py >/dev/zero 2>&1&" >> /etc/rc.d/rc.local
 #Crontab setup
-echo "setup crontab for ssbc reboot"
+echo "setup crontab for ossbc reboot"
 crontab -l > mycron
 echo "*/15 * * * * sh /www/wwwroot/ssbc/bin/ssbc-reboot.sh" >> mycron
 crontab mycron
