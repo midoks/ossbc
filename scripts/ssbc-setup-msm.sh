@@ -46,9 +46,9 @@ searchd --config ./sphinx.conf
 
 ln -s /usr/lib/python2.7/site-packages/django/contrib/admin/static/admin /www/wwwroot/ossbc/web/static/admin
 cd /www/wwwroot/ossbc
-sed -i "42a\    'gunicorn'," /www/wwwroot/ossbc/settings.py
+sed -i "42a\    'gunicorn'," /www/wwwroot/ossbc/ssbc/settings.py
 #gunicorn启动网站并在后台运行
-nohup gunicorn ssbc.wsgi:application -b 127.0.0.1:8000 --reload>/dev/zero 2>&1&  
+nohup gunicorn ssbc.wsgi:application -b 127.0.0.1:8000 --reload>/dev/zero 2>&1&
 myip=`/sbin/ifconfig -a|grep inet|grep -v 127.0.0.1|grep -v inet6|awk '{print $2}'|tr -d "addr:"`
 while true; do
     read -p "确定浏览器能访问网站  http://$myip  吗?[y/n]" yn
