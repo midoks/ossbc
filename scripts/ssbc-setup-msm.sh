@@ -77,7 +77,7 @@ echo "nohup python index_worker.py >/dev/zero 2>&1&" >> /etc/rc.d/rc.local
 #Crontab setup
 echo "setup crontab for ossbc reboot"
 crontab -l > mycron
-echo "*/15 * * * * sh /www/wwwroot/ssbc/bin/ssbc-reboot.sh" >> mycron
+echo "*/15 * * * * sh /www/wwwroot/ossbc/bin/ssbc-reboot.sh" >> mycron
 crontab mycron
 rm mycron
 echo "setup crontab finished"
