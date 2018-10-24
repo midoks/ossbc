@@ -44,7 +44,7 @@ ps aux|grep searchd|awk '{print $2}'|grep -v grep|xargs kill -9
 searchd --config ./sphinx.conf
 
 
-ln -s /usr/lib/python2.7/site-packages/django/contrib/admin/static/admin /www/wwwroot/ssbc/web/static/admin
+ln -s /usr/lib/python2.7/site-packages/django/contrib/admin/static/admin /www/wwwroot/ossbc/web/static/admin
 cd /www/wwwroot/ossbc
 sed -i "42a\    'gunicorn'," /www/wwwroot/ossbc/settings.py
 #gunicorn启动网站并在后台运行
