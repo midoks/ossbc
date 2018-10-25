@@ -10,7 +10,7 @@ from django.core.urlresolvers import reverse
 from django.views.decorators.cache import cache_page
 from django.shortcuts import render, redirect, get_object_or_404
 
-# from lib import politics
+from lib import politics
 import workers.metautils
 from top.models import KeywordLog
 from search.models import RecKeywords, Hash

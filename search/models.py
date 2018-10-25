@@ -10,8 +10,8 @@ import MySQLdb as mdb
 import MySQLdb.cursors
 
 
-search_conn = mdb.connect('127.0.0.1', 'ssbc', 'ssbc', '', port=9306,
-                          charset='utf8', cursorclass=MySQLdb.cursors.DictCursor)
+search_conn = mdb.connect('127.0.0.1', 'ssbc', 'ssbc', 'ssbc',
+                          port=3306, charset='utf8', cursorclass=MySQLdb.cursors.DictCursor)
 search_conn.ping(True)
 re_punctuations = re.compile(
     ur"。|，|,|！|…|!|《|》|<|>|\"|'|:|：|？|\?|、|\||“|”|‘|’|；|\\|—|_|=|（|）|·|\(|\)|　|\.|【|】|『|』|@|&|%|\^|\*|\+|\||<|>|~|`|\[|\]")
