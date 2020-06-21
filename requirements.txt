@@ -9,7 +9,7 @@ ordereddict==1.1
 oursql==0.9.3.1
 pymongo==3.0.1
 python-memcached==1.54
-requests==2.7.0
+requests==2.20.0
 #six==1.9.0
 sphinxit==0.3.2
 supervisor==3.1.3
