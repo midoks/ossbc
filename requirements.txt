@@ -1,6 +1,6 @@
 backports.ssl-match-hostname==3.4.0.2
 #certifi==2015.4.28
-Django==1.11.29
+Django==2.2.24
 django-mysql==0.1.10
 gunicorn==19.5.0
 #meld3==1.0.2
